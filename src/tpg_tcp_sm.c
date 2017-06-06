@@ -1262,6 +1262,8 @@ static int tsm_SF_estab(tcp_control_block_t *tcb, tcpEvent_t event,
                 SEG_LE(seg_ack, tcb->tcb_snd.nxt)) {
                 /* Will update tcb_snd.una inside! */
                 tsm_cleanup_retrans_queu(tcb, seg_ack);
+                /* Cancel the retransmission timer */
+                tcp_timer_rto_cancel(&tcb->tcb_l4);
             }
 
             /*
